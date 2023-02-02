@@ -17,7 +17,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.json());
 
 //connecting with mongoose to mongodb
-mongoose.connect(db.mongoRUI, {
+mongoose.connect(db.mongoURI, {
     useNewURLParser:true
 }).then(function(){ //callback functionality
     console.log("Connected to MongoDB");

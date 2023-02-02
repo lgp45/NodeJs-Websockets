@@ -7,13 +7,17 @@ var mongoose = require("mongoose"); //middleware framework for easing use of mon
 var { urlencoded } = require("express");
 var port = process.env.port||3000;
 
+//database linker
+//require a specifc route
+var db = require("./config/database")
+
 //setup bodyparser for the app 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.json());
 
 //connecting with mongoose to mongodb
-mongoose.connect("mongodb://localhost:27017/gameEntries", {
+mongoose.connect(db.mongoRUI, {
     useNewURLParser:true
 }).then(function(){ //callback functionality
     console.log("Connected to MongoDB");

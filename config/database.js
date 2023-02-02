@@ -5,6 +5,6 @@ if(process.env.NODE_ENV === "production")
 }
 else
 {
-    module.exports = {mongoRUI: "mongodb://localhost:27017/gameEntries"}
+    module.exports = {mongoURI: "mongodb://localhost:27017/gameEntries"}
     console.log("Connected to Local Machine Database...")
 }

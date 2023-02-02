@@ -12,4 +12,4 @@ var Schema =  new Schema({
     }
 });
 
-mongoose.model("game", Schema);
+mongoose.model("Game", Schema);

@@ -55,11 +55,23 @@ app.post("/deleteGame", function(req,res){
 
 //update route using a POST REQUEST
 app.post("/updateGame", function(req, res){
+
     console.log("Post request made");
     console.log(req.body);
+    //res.redirect('gameList.html');
 
-    res.redirect('gameList.html');
-})
+
+    Game.findByIdAndUpdate(req.body.id, {game: req.body.game}, function (err, docs) {
+        if (err){
+            console.log(err)
+        }
+        else{
+            console.log("Updated Game : ", docs);
+            res.redirect('gameList.html');
+        }
+    });
+});
+
 
 app.get("/getID::id", function(req, res){
     console.log(req.body.game._id);

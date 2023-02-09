@@ -32,6 +32,25 @@
                     deleteButton.innerText = "Delete Game";
                     deleteButton.addEventListener("click", function(){
                         //fetch request to server to delete the game in the list
+                        location.reload();  //reload page
+                        fetch("/deleteGame", {  //fetch request to grab the data in the game schema object
+                            method:"POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                game: game
+                            })
+                        })
+                    });
+                    gameElement.appendChild(deleteButton);  //add the delete button
+
+
+                    var updateButton = document.createElement("button");
+                    updateButton.innerText = "Update Game";
+                    updateButton.addEventListener("click", function(){
+                        //fetch request to server to delete the game in the list
+                        /*
                         location.reload();
                         fetch("/deleteGame", {
                             method:"POST",
@@ -42,8 +61,10 @@
                                 game: game
                             })
                         })
+                        */
                     });
-                    gameElement.appendChild(deleteButton);
+                    gameElement.appendChild(updateButton);  //add the update button
+                    
                 }
 
             })

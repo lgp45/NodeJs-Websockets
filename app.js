@@ -34,9 +34,6 @@ app.get("/poop", function(req,res){
 
 app.post("/saveGame", function(req,res){
     console.log(req.body);
-    
-    
-
     new Game(req.body).save().then(function(){
         //res.send(req.body);
         res.redirect("gameList.html");
@@ -53,6 +50,12 @@ app.get("/getGames", function(req,res){
 app.post("/deleteGame", function(req,res){
     console.log(`Game Deleted ${req.body.game._id}`);
     Game.findByIdAndDelete(req.body.game._id).exec();
+    res.redirect('gameList.html');
+})
+
+//update route using a POST REQUEST
+app.post("/updateGame", function(req, res){
+    console.log("Post request made");
     res.redirect('gameList.html');
 })
 

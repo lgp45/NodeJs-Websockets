@@ -50,9 +50,9 @@
                     updateButton.innerText = "Update Game";
                     updateButton.addEventListener("click", function(){
                         //fetch request to server to delete the game in the list
-                        /*
+                        
                         location.reload();
-                        fetch("/deleteGame", {
+                        fetch("/getID", {
                             method:"POST",
                             headers: {
                                 "Content-Type": "application/json"
@@ -61,7 +61,7 @@
                                 game: game
                             })
                         })
-                        */
+                        
                     });
                     gameElement.appendChild(updateButton);  //add the update button
                     

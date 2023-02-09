@@ -59,6 +59,13 @@ app.post("/updateGame", function(req, res){
     res.redirect('gameList.html');
 })
 
+app.post("/getID", function(req, res){
+    console.log(req.body.game._id);
+    const pID = req.body.game._id;
+    res.send("/updatePage.html" + "?" + pID)
+
+})
+
 app.use(express.static(__dirname+"/pages"));
 app.listen(port, function(){
     console.log(`Running on port ${port}`);

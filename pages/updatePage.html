@@ -8,12 +8,17 @@
 </head>
 <body>
     <h1>Update Page</h1>
-    <form action="/updateGame" method="post">
+    <form action="/updateGame" method="POST">
         <label for="name">Name goes here.</label>
         <br>
         <input type="text" name="name" id="name">
         <br>
         <input type="submit" value="Update Name">
     </form>
+
+    <script>
+        var queryData = window.location.search; //grabs data passed throughin the url
+        console.log(queryData);
+    </script>
 </body>
 </html>

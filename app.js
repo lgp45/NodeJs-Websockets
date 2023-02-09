@@ -1,68 +1,63 @@
-//base setup
 var express = require("express");
 var app = express();
 var path = require("path");
 var bodyparser = require("body-parser");
-var mongoose = require("mongoose"); //middleware framework for easing use of mongodb
-var { urlencoded } = require("express");
+var mongoose = require("mongoose");
 var port = process.env.port||3000;
 
-//database linker
-//require a specifc route
-var db = require("./config/database")
+var db = require("./config/database");
 
-//setup bodyparser for the app 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(express.json());
 
-//connecting with mongoose to mongodb
-mongoose.connect(db.mongoURI, {
+mongoose.connect(db.mongoURI,{
     useNewURLParser:true
-}).then(function(){ //callback functionality
-    console.log("Connected to MongoDB");
-}).catch(function(err){    //secondary callback functionality
+}).then(function(){
+    console.log("Connected to MongoDB Database");
+}).catch(function(err){
     console.log(err);
 });
 
 require("./models/Game");
-var Game = mongoose.model("Game");
+var Game = mongoose.model("game");
 
-//EXAMPLE ROUTES
-//initial route creation test
-app.get("/", function(req, res){
+//example routes
+app.get("/", function(req,res){
+    //res.send("Hello There");
+    res.redirect("gameList.html");
+})
+
+app.get("/poop", function(req,res){
+    res.send("What's crackin dude?");
+})
+
+app.post("/saveGame", function(req,res){
+    console.log(req.body);
     
-})
-app.get("/mvc", function(req, res){
-    res.send("Whats crackin dude.");
-})
-
-//initiate save
-app.post("/saveGame", function(req, res){   //form action must match this, form action name defines the route that is being taken
-    //console.log(req.body);  //output of the req.body to the terminal
-    //res.send(req.body); //output of the JSON data from the DOC
+    
 
     new Game(req.body).save().then(function(){
-        res.redirect("gameList.html");//a way to push the submit reload back to the original page
-    })
+        //res.send(req.body);
+        res.redirect("gameList.html");
+    });
 })
 
-//initiate get of game list
-app.get("/getGames", function(req, res){
+app.get("/getGames", function(req,res){
     Game.find({}).then(function(game){
-        //console.log(game);
+        //console.log({game});
         res.json({game});
     })
 })
 
-app.post("/deleteGame", function(req, res){
+app.post("/deleteGame", function(req,res){
     console.log(`Game Deleted ${req.body.game._id}`);
     Game.findByIdAndDelete(req.body.game._id).exec();
-    res.redirect("/gameList.html");
+    res.redirect('gameList.html');
 })
 
 app.use(express.static(__dirname+"/pages"));
-app.listen(3000, function()
-{
-    console.log(`Running on port: ${port}`);
+app.listen(port, function(){
+    console.log(`Running on port ${port}`);
+   
 })

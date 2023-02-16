@@ -56,10 +56,9 @@ app.post("/deleteGame", function(req,res){
 //update route using a POST REQUEST
 app.post("/updateGame", function(req, res){
 
-    console.log("Post request made");
+    console.log("Post request made:");
     console.log(req.body);
     //res.redirect('gameList.html');
-
 
     Game.findByIdAndUpdate(req.body.id, {game: req.body.game}, function (err, docs) {
         if (err){
@@ -76,8 +75,32 @@ app.post("/updateGame", function(req, res){
 app.get("/getID::id", function(req, res){
     console.log(req.body.game._id);
     res.redirect("updatePage.html?id=" + req.params.id);
-
 })
+
+
+//Unity Route Testing
+app.post("/unity", function(req, res){
+    console.log("Hello from Unity.");
+    //prep an object to recieve the object data
+    var unityData = {
+        "level" : req.body.level,   //we can grab basedon the parameter name values of the obj we want to grab
+        "timeElapsed" : req.body.timeElapsed,
+        "name" : req.body.name
+    }
+    console.log(unityData);
+})
+
+app.get("/sendUnityData", function(req, res){
+    console.log("request made");
+    var dataToSend = 
+    {
+        "level" : 9001,   //we can grab basedon the parameter name values of the obj we want to grab
+        "timeElapsed" : 2250.65,
+        "name" : "Lazlo Cravensworth"
+    }
+    res.send(dataToSend);
+})
+
 
 app.use(express.static(__dirname+"/pages"));
 app.listen(port, function(){

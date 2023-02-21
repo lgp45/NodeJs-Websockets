@@ -125,15 +125,15 @@ app.get("/gameEntries", function(req, res) {
     
   });
 
-  app.get('/gameEntries/search', (req, res) => {
-    const searchCol = req.query.searchCol;
-    const searchVal = req.query.searchVal;
-    // handle search logic here
-    console.log("searching...");
-    const games = Game.find({ searchCol: { $regex: game, $options: 'i' } });
-    res.send(games);
-
-  });
+  app.get('/gameEntries/search', function(req, res) {
+    var { col, val } = req.query;
+    var searchCol = col;
+    var searchVal = val;
+    Game.findOne({col: val}).then(function(game){
+        res.json({game});
+    })
+  
+});
 
 
 //Unity Route Testing

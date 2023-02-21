@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Page</title>
+</head>
+<body>
+    <h1>Update Page</h1>
+    <form action="/gameEntries?_sort=" method="GET" id="sortForm" name="sortForm">
+        <label id="tSort" for="name">Sort Style Goes Here (blank or -)</label>
+        <br>
+        <input type="text" name="sort" id="sort">
+        <br>
+        <label id="tCol" for="column">Column to Sort goes here.</label>
+        <br>
+        <input type="text" name="column" id="c";>
+        <br>
+        <input type="submit" value="Run Sort" form="sortForm">
+    </form>
+<hr>
+<form action="/gameEntries/search" method="GET" id="searchForm" name="searchForm">
+
+    <label id="tCol" for="column">Column and Value Search</label>
+    <br>
+    <input type="text" name="searchCol" id="searchCol";>
+    <br>
+    <label id="tSearch" for="searchVal">Value to Search</label>
+    <br>
+    <input type="text" name="searchVal" id="searchVal">
+    <br>
+    <br>
+    <input type="submit" value="Query Entry" id="sbm" form="searchForm">
+</form>
+
+<script form="sortForm">
+    const sortForm = document.getElementById('sortForm');
+    sortForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const queryData = window.location.search;
+      const entries = new URLSearchParams(queryData);
+      document.getElementById('sort').value = entries.get('sort') || '';
+      document.getElementById('c').value = entries.get('column') || '';
+      sortForm.submit();
+    });
+  </script>
+<script form="searchForm">
+    const searchForm = document.getElementById('searchForm');
+    searchForm.addEventListener('submit', function(event) {
+         event.preventDefault();
+   var queryData = window.location.search;
+   var entries = new URLSearchParams(queryData);
+   document.getElementById("searchCol").value = entries.get("searchCol");
+   document.getElementById("searchVal").value = entries.get("searchVal");
+   searchForm.submit();
+    });
+</script>
+</body>
+</html>

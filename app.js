@@ -70,7 +70,7 @@ wss.on('connection', (ws) => {
 
 // ... Add your other Express routes and middleware here ...
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 http.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);

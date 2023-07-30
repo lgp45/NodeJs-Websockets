@@ -171,6 +171,7 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     console.log('Received message from client:', message);
+    ws.send("You have joined the socketwerkz.");
     // Handle the message from the Unity game server
     // and send a response if needed.
     // You can implement custom logic here.

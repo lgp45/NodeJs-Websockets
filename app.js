@@ -171,7 +171,6 @@ wss.on('connection', (ws) => {
 
   ws.on('message', (message) => {
     console.log('Received message from client:', message);
-    ws.send("Haaaa");
     // Handle the message from the Unity game server
     // and send a response if needed.
     // You can implement custom logic here.
@@ -186,7 +185,6 @@ wss.on('connection', (ws) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(__dirname+"/pages"));
 http.listen(PORT, () => {
   console.log(`Express server listening on port ${PORT}`);
 });

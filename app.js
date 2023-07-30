@@ -159,35 +159,85 @@ app.get("/gameEntries", function(req, res)
 //     res.send(dataToSend);
 // })
 // app.js (or your server file)
+// const express = require('express');
+// const app = express();
+// const http = require('http').createServer(app);
+// const WebSocket = require('ws');
+// // var port = process.env.port||3000;
+// const wss = new WebSocket.Server({ server: http });
+
+// wss.on('connection', (ws) => {
+//   console.log('A client connected to the WebSocket server.');
+
+//   ws.on('message', (message) => {
+//     console.log('Received message from client:', message);
+//     ws.send("You have joined the socketwerkz.");
+//     // Handle the message from the Unity game server
+//     // and send a response if needed.
+//     // You can implement custom logic here.
+//   });
+
+//   ws.on('close', () => {
+//     console.log('A client disconnected from the WebSocket server.');
+//   });
+// });
+
+// // ... Add your other Express routes and middleware here ...
+
+// const PORT = process.env.PORT || 8080;
+
+// http.listen(PORT, () => {
+//   console.log(`Express server listening on port ${PORT}`);
+// });
+// app.js (or your server file)
 const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const WebSocket = require('ws');
-// var port = process.env.port||3000;
-const wss = new WebSocket.Server({ server: http });
 
-wss.on('connection', (ws) => {
-  console.log('A client connected to the WebSocket server.');
+const wssRelay = new WebSocket.Server({ server: http });
+
+// Store WebSocket connections to GameServer A and GameServer B.
+let wsGameServerA = null;
+let wsGameServerB = null;
+
+wssRelay.on('connection', (ws) => {
+  console.log('A game server connected to the relay server.');
+
+  // Identify the game server (GameServer A or GameServer B) based on a query parameter or authentication.
+  // For simplicity, let's assume the query parameter "server" is used, where "a" or "b" indicates the server.
+  const serverId = new URLSearchParams(ws.upgradeReq.url).get('server');
+
+  if (serverId === 'a') {
+    // If the game server is GameServer A, store its WebSocket connection.
+    wsGameServerA = ws;
+    console.log('GameServer A connected.');
+  } else if (serverId === 'b') {
+    // If the game server is GameServer B, store its WebSocket connection.
+    wsGameServerB = ws;
+    console.log('GameServer B connected.');
+  }
 
   ws.on('message', (message) => {
-    console.log('Received message from client:', message);
-    ws.send("You have joined the socketwerkz.");
-    // Handle the message from the Unity game server
-    // and send a response if needed.
+    console.log('Received message from game server:', message);
+
+    // Handle messages received from the game servers.
     // You can implement custom logic here.
   });
 
   ws.on('close', () => {
-    console.log('A client disconnected from the WebSocket server.');
+    console.log('A game server disconnected from the relay server.');
+
+    // Handle disconnections of game servers if needed.
+    // For example, if GameServer A disconnects, you can set wsGameServerA = null.
+    // Be sure to handle client transfers in such cases and manage reconnections.
   });
 });
 
 // ... Add your other Express routes and middleware here ...
 
-const PORT = process.env.PORT || 8080;
-
+const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
-  console.log(`Express server listening on port ${PORT}`);
+  console.log(`Relay server listening on port ${PORT}`);
 });
-
 

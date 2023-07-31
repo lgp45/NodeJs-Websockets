@@ -37,13 +37,13 @@ wss.on('connection', (ws) => {
       if (!gameServer1) 
       {
         gameServer1 = ws;
-        Debug.log("Game Server 1 has been cached." + gameServer1.url)
+        console.log("Game Server 1 has been cached." + gameServer1.url)
         ws.send("You have joined the WebSocket Relay as Game Server 1.");
       } 
       else if (!gameServer2) 
       {
         gameServer2 = ws;
-        Debug.log("Game Server 1 has been cached." + gameServer2.url)
+        console.log("Game Server 2 has been cached." + gameServer2.url)
         ws.send("You have joined the WebSocket Relay as Game Server 2.");
       } 
       else 

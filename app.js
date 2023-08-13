@@ -32,7 +32,7 @@ wss.on('connection', (ws) => {
       }
     } 
     else 
-    {
+    { 
       //this is a new game server connection
       if (!gameServer1) 
       {

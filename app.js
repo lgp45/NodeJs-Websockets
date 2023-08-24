@@ -4,6 +4,10 @@ const http = require('http').createServer(app);
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: http });
 
+//prep for integrating into the Docker-compose for spin-up, spin-down, and migrations 
+
+//  --this changeover will be very slow as Senior Proj, PID REDUX and other time reqs supersede.
+
 //store references to the connected game servers
 let gameServer1 = null;
 let gameServer2 = null;
@@ -38,13 +42,13 @@ wss.on('connection', (ws) => {
       {
         gameServer1 = ws;
         console.log("Game Server 1 has been cached." + gameServer1.url)
-        ws.send("You have joined the WebSocket Relay as Game Server 1.");
+        ws.send("You have joined the WebSocket Relay on Game Server 1!");
       } 
       else if (!gameServer2) 
       {
         gameServer2 = ws;
         console.log("Game Server 2 has been cached." + gameServer2.url)
-        ws.send("You have joined the WebSocket Relay as Game Server 2.");
+        ws.send("You have joined the WebSocket Relay on Game Server 2.");
       } 
       else 
       {
